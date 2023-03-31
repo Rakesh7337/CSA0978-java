@@ -1,34 +1,52 @@
-import java.io.*;
-class A extends Thread
+import java.util.Scanner;
+class Table
+{  
+void printTable(int n)
+{ 
+for(int i=1;i<=n;i++){  
+System.out.println(n*i);  
+try
+{  
+Thread.sleep(400);  
+}
+catch(Exception e)
 {
+System.out.println(e);
+}  
+}  
+}  
+}  
+class A extends Thread{  
+Table t;  
+A(Table t)
+{  
+this.t=t;  
+}  
 public void run()
-{
-for(int i=1;i<=5;i++);
-{
-System.out.println(i+"*"+5+"="+(i*5));
-}
-System.out.println("Thread1 is completed :");
-}
-}
-class B extends Thread{
+{  
+t.printTable(5); 
+}  
+}  
+class B extends Thread
+{  
+Table t;  
+B(Table t)
+{  
+this.t=t;  
+}  
 public void run()
-{
-for(int j=1;j<=7;j++);
-{
-System.out.println(j+"*"+7+"="+(j*7));
-}
-System.out.println("Thread2 is completed :");
-}
-}
-public class table
-{
-public static void main(String []args)throws IOException
-{
-A ThreadA=new A();
-B ThreadB=new B();
-ThreadA.setPriority(Thread.MAX_PRIORITY);
-ThreadB.setPriority(Thread.MIN_PRIORITY);
-ThreadA.start();
-ThreadB.start();
-}
+{  
+t.printTable(4);  
+}  
+}  
+class threadtable
+{  
+public static void main(String args[])
+{  
+Table obj = new Table();  
+A t1=new A(obj);  
+B t2=new B(obj);  
+t1.start();  
+t2.start();  
+}  
 }
